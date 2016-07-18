@@ -1,0 +1,13 @@
+*,
+html,
+body {
+  box-sizing: border-box;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+body {
+  font-size: 14px;
+  padding: 50px;
+}
+
+a { color: #00B7FF; }
