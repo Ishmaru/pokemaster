@@ -11,6 +11,9 @@ router.get('/users', usersController.index);
 router.get('/users/:id', usersController.show);
 
 router.get('/pokemon', pokemonController.index);
+router.get('/pokemon/:user', pokemonController.show);
+router.post('/pokemon', pokemonController.create);
+
 // router.get('/pokemons/:id', pokemonController.show);
 
 

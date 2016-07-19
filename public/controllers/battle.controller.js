@@ -14,6 +14,7 @@
     battle.currentWild = WildDataService.wildmon[0];
     battle.currentPoke = TrainerDataService.pokemon[0];
 
+    battle.capture = capture;
     battle.attackCalc = attackCalc;
     battle.dodgeCalc = dodgeCalc;
     battle.checkPriority = checkPriority;
@@ -29,12 +30,12 @@
     //   return ((Math.floor(Math.random() * (enemy.stats[0].base_stat + 1) > (player.stats[4].base_stat + 1)))) ? true : false;
     // };
 
-    function attackCalc() {
-      battle.order[1].stats[5] -= Math.max(1, (Math.floor(Math.random() * (battle.order[0].stats[4].base_stat + 1)) - battle.order[1].stat[3].base_stat));
-    };
+    // function attackCalc() {
+    //   battle.order[1].stats[5].base_stat -= Math.max(1, (Math.floor(Math.random() * (battle.order[0].stats[4].base_stat + 1)) - battle.order[1].stat[3].base_stat));
+    // };
 
-    function dodgeCalc() {
-      return ((Math.floor(Math.random() * (battle.order[1].stats[0].base_stat + 1) > (battle.order[0].stats[4].base_stat + 1)))) ? true : false;
+    function attackCalc() {
+      battle.order[1].currHp -= Math.max(1, (Math.floor(Math.random() * (battle.order[0].stats[4].base_stat + 1)) - battle.order[1].stat[3].base_stat));
     };
 
     function missed() {
@@ -53,7 +54,7 @@
 
     function dammage() {
       dodgeCalc() ? attackCalc() : missed();
-    }
+    };
 
     function turn(){
       checkPriority(battle.currentPoke, battle.currentWild);
@@ -64,6 +65,36 @@
       }
       battle.order = [];
     };
+
+    // function checkWild(){
+    //   if (battle.currentWild.stats[5].base_stat < 1) {
+    //     console.log(`${battle.currentWild.name} has fainted!`);
+    //   }
+    // }
+
+    // function checkPoke(){
+    //   if (battle.currentPoke.currHp < 1) {
+    //     console.log(`${battle.currentPoke.name} has fainted!`);
+    //   }
+    // }
+
+    function checkPoke(){
+      if (battle.order[1].currHp < 1) {
+        console.log(`${battle.currentPoke.name} has fainted!`);
+      }
+    }
+
+    function capture(chance) {
+      (Math.floor(Math.random() * 100) > chance) ? battle.postPoke() : console.log("Failed");
+    };
+
+    function postPoke() {
+      $http.post('/api/pokemon', battle.currentWild)
+        .then(function(response) {
+          console.log(response);
+          battle.currentWild.stats[5].base_stat = 0;
+        });
+    }
 
   }
 

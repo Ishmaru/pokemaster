@@ -11,7 +11,29 @@ var index = function(req, res){
     }
   });
 };
+var show = function(req, res, next){
+  Pokemon.find({user: req.params.user}, function(err, pokemons) {
+    if (err) {
+      res.json({message: 'Could not find user because ' + err});
+    } else if (!pokemons) {
+      res.json({message: 'No pokemon with this user.'});
+    } else {
+      res.json(pokemons);
+    }
+  });
+};
 
+var create = function(req, res, next) {
+  var capture    = new Pokemon();
+  capture        = req.body;
+  capture.save(function(err, savedPokemon) {
+    if (err) {
+      res.send(err);
+    }
+    console.log(savedPokemon);
+    res.json(savedPokemon);
+  });
+};
 // var show = function(req, res, next){
 //   Pokemon.findById(req.params.id, function(err, user) {
 //     if (err) {
@@ -25,6 +47,7 @@ var index = function(req, res){
 // };
 
 module.exports = {
-  index: index
-  // show:  show
+  index: index,
+  show:  show,
+  create: create
 };

@@ -14,6 +14,12 @@
 
     trainer.getPoke = getPoke;
 
+    trainer.faint = faint;
+
+    trainer.swap = swap;
+
+    trainer.index = findex;
+
     // trainer.getPoke();
 
     function getPoke() {
@@ -23,6 +29,22 @@
         console.error('Error', errRes);
       });
     }
+
+    function index(poke) {
+      return trainer.pokemon.indexOf(poke);
+    }
+
+    function swap(poke) {
+      // var change =  trainer.pokemon.shift();
+      var change = trainer.pokemon.splice(index(poke), 1);
+      trainer.pokemon.push(change);
+    }
+
+    function faint() {
+      trainer.pokemon[0].currHp = 1;
+      swap(trainer.pokemon[0]);
+    }
+
   return trainer;
   }
 
