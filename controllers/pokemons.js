@@ -1,3 +1,4 @@
+var request = require('request');
 // Require resource's model(s).
 var Pokemon = require("../models/pokemon");
 
@@ -35,16 +36,18 @@ var create = function(req, res, next) {
 };
 
 var get = function(req, res, next){
-  var pokeId = Math.floor(Math.random() * (649 + 1));
-  $http.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}/`).then(function(response) {
-    if (err) {
-    res.send({message: err});
-    } else {
-    res.json(response);
-    console.log(response);
-    }
-  });
-};
+  var pokeId = Math.floor(Math.random() * (649 + 1));{
+  request.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}/`, function(err, response) {
+      if (err) {
+      res.send({message: err});
+      } else {
+      res.json(response);
+      }
+    });
+  };
+}
+
+
 
 // var get = function(req, res, next) {
 //   var pokeId = Math.floor(Math.random() * (649 + 1));

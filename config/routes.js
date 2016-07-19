@@ -10,9 +10,9 @@ var pokemonController = require('../controllers/pokemons');
 router.get('/users', usersController.index);
 router.get('/users/:id', usersController.show);
 
+router.get('/pokemon/get', pokemonController.get);
 router.get('/pokemon', pokemonController.index);
 router.get('/pokemon/:user', pokemonController.show);
 router.post('/pokemon', pokemonController.create);
-router.get('/pokemon/get', pokemonController.get);
 
 module.exports = router;
