@@ -3,7 +3,7 @@
 
   angular
       .module("pokeMaster")
-      .factory("BattleController", BattleController);
+      .controller("BattleController", BattleController);
 
   BattleController.$inject = ["WildDataService", "TrainerDataService", "$state", "$log", "$http"];
 
@@ -11,12 +11,12 @@
     var battle = this;
 
     battle.order = [];
-    battle.currentWild = WildDataService.wild[0];
+    battle.currentWild = WildDataService.wildmon[0];
     battle.currentPoke = TrainerDataService.pokemon[0];
 
     battle.attackCalc = attackCalc;
-    battle.dodgeCalc = dodge;
-    battle.checkPriority = checkSpeed;
+    battle.dodgeCalc = dodgeCalc;
+    battle.checkPriority = checkPriority;
     battle.dammage = missed;
     battle.missed = missed;
     battle.turn = turn;
@@ -59,8 +59,8 @@
       checkPriority(battle.currentPoke, battle.currentWild);
       for (var i = 0; i < 1; i++) {
         battle.dammage();
-        var switch = battle.order.shift()
-        battle.order.push(switch);
+        var change = battle.order.shift();
+        battle.order.push(change);
       }
       battle.order = [];
     };

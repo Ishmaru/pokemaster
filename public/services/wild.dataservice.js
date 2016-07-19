@@ -8,9 +8,9 @@
   WildDataService.$inject = ["$state", "$log", "$http"];
 
   function WildDataService($state, $log, $http) {
-    var wild = this;
+    var wild = {};
 
-    wild.wild;
+    wild.wildmon = [];
 
     wild.getWild = getWild;
 
@@ -19,12 +19,12 @@
     function getWild() {
       var pokeId = Math.floor(Math.random() * (649 + 1));
       $http.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}/`).then(function(response) {
-        wild.wild = response.data;
+        wild.wildmon = response.data;
       }, function(errRes) {
         console.error('Error', errRes);
       });
     }
-
+  return wild;
   }
 
 })();

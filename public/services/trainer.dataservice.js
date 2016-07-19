@@ -5,16 +5,16 @@
       .module("pokeMaster")
       .factory("TrainerDataService", TrainerDataService);
 
-  TrainerController.$inject = ["$state", "$log", "$http"];
+  TrainerDataService.$inject = ["$state", "$log", "$http"];
 
   function TrainerDataService($state, $log, $http) {
-    var trainer = this;
+    var trainer = {};
 
     trainer.pokemon = [];
 
     trainer.getPoke = getPoke;
 
-    trainer.getPoke();
+    // trainer.getPoke();
 
     function getPoke() {
       $http.get(`api/users/${_id}/pokemons`).then(function(response) {
@@ -23,7 +23,7 @@
         console.error('Error', errRes);
       });
     }
-
+  return trainer;
   }
 
 })();

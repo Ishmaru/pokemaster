@@ -42,6 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Useful for debugging the state of requests.
 app.use(debugReq);
 
+// app.get('/', function(req, res) {
+//   res.sendFile('public/index.html');
+// });
+
 // Defines all of our "dynamic" routes.
 app.use('/', routes);
 
