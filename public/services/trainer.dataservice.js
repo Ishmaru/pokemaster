@@ -18,12 +18,17 @@
 
     trainer.swap = swap;
 
-    trainer.index = findex;
+    trainer.index = index;
 
-    // trainer.getPoke();
+    trainer.levelUp = levelUp;
+
+
+    trainer.getPoke();
 
     function getPoke() {
-      $http.get(`api/users/${_id}/pokemons`).then(function(response) {
+      var user = '578e805bac9ab9181610f28c';
+      $http.get(`api/pokemon/${user}`).then(function(response) {
+        console.log(response.data);
         trainer.pokemon = response.data;
       }, function(errRes) {
         console.error('Error', errRes);
@@ -45,6 +50,20 @@
       swap(trainer.pokemon[0]);
     }
 
+    function levelUp() {
+      if (trainer.pokemon[0].exp >= trainer.pokemon[0].next_lv) {
+        trainer.pokemon[0].level += 1;
+        trainer.pokemon[0].exp -= trainer.pokemon[0].next_lv;
+        trainer.pokemon[0].next_lv *= 1.5;
+      }
+    }
+
+    function addStats() {
+      trainer.pokemon[0].stats.forEach(function(i){
+        i.base_stat *= (0.40 * trainer.pokemon.level);
+      });
+      trainer.pokemon[0].currHp = trainer.pokemon[0].stats[5].base_stat;
+    }
   return trainer;
   }
 

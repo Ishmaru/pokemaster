@@ -96,6 +96,62 @@ Pokemon.remove({}, function(err) {
           ],
           user: users[0]._id,
           curr_hp: 35
+        },
+        { // 0
+          name: "Eevee",
+          id: 133,
+          stats: [
+            {
+              stat: {
+                name: "speed"
+              },
+              base_stat: 55
+            },
+            {
+              stat: {
+                name: "special-defense"
+              },
+              base_stat: 65
+            },
+            {
+              stat: {
+                name: "special-attack"
+              },
+              base_stat: 45
+            },
+            {
+              stat: {
+                name: "defense"
+              },
+              base_stat: 50
+            },
+            {
+              stat: {
+                name: "attack"
+              },
+              base_stat: 55
+            },
+            {
+              stat: {
+                name: "hp"
+              },
+              base_stat: 55
+            }
+          ],
+          sprites: {
+            back_default: "http://pokeapi.co/media/sprites/pokemon/back/133.png",
+            front_default: "http://pokeapi.co/media/sprites/pokemon/133.png"
+          },
+          base_experience: 65,
+          types: [
+            {
+              classtype: {
+                name: "normal"
+              }
+            }
+          ],
+          user: users[1]._id,
+          curr_hp: 55
         }
       ];
       // create default Pokemon

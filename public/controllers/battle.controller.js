@@ -12,11 +12,14 @@
 
     battle.order = [];
     battle.currentWild = WildDataService.wildmon[0];
+    battle.pokemons = TrainerDataService.pokemon;
     battle.currentPoke = TrainerDataService.pokemon[0];
+    battle.kill = WildDataService.kill;
 
+    battle.expReward = expReward;
     battle.capture = capture;
     battle.attackCalc = attackCalc;
-    battle.dodgeCalc = dodgeCalc;
+    // battle.dodgeCalc = dodgeCalc;
     battle.checkPriority = checkPriority;
     battle.dammage = missed;
     battle.missed = missed;
@@ -80,19 +83,24 @@
 
     function checkPoke(){
       if (battle.order[1].currHp < 1) {
+        battle.expReward();
         console.log(`${battle.currentPoke.name} has fainted!`);
       }
     }
 
-    function capture(chance) {
-      (Math.floor(Math.random() * 100) > chance) ? battle.postPoke() : console.log("Failed");
-    };
+    function capture(chance){
+      (Math.floor(Math.random() * (100 + (battle.order[1].currHp / 2))) < chance) ? battle.postPoke() : console.log("Failed")
+    }
+
+    function expReward() {
+      battle.order[0].exp += battle.order[1].base_experience;
+    }
 
     function postPoke() {
       $http.post('/api/pokemon', battle.currentWild)
         .then(function(response) {
           console.log(response);
-          battle.currentWild.stats[5].base_stat = 0;
+          battle.kill;
         });
     }
 

@@ -1,3 +1,6 @@
 <div>
-  {{1 + 1}}
+  <img class="enemyPoke" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}">
+  <img class="playerPoke" ng-src="{{battle.currentPoke.sprites.back_default}}" alt="{{battle.currentPoke.name}}">
+  <p class="stats">{{battle.currentPoke.name}}</p>
+  <p class="stats">HP: {{battle.currentPoke.curr_hp}}</p>
 </div>

@@ -1,12 +1,11 @@
 // Require resource's model(s).
 var Pokemon = require("../models/pokemon");
 
-var index = function(req, res){
+var index = function(req, res, next){
   Pokemon.find({}, function(err, pokemons) {
     if (err) {
       res.send({message: err});
     } else {
-      // res.json('pokemons/index', {pokemons: pokemons});
     res.json(pokemons);
     }
   });
@@ -34,6 +33,27 @@ var create = function(req, res, next) {
     res.json(savedPokemon);
   });
 };
+
+var get = function(req, res, next){
+  var pokeId = Math.floor(Math.random() * (649 + 1));
+  $http.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}/`).then(function(response) {
+    if (err) {
+    res.send({message: err});
+    } else {
+    res.json(response);
+    console.log(response);
+    }
+  });
+};
+
+// var get = function(req, res, next) {
+//   var pokeId = Math.floor(Math.random() * (649 + 1));
+//   $http.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}/`).then(function(response) {
+//     console.log(response.data);
+//     wild.wildmon = response.data;
+//   )
+// }
+
 // var show = function(req, res, next){
 //   Pokemon.findById(req.params.id, function(err, user) {
 //     if (err) {
@@ -49,5 +69,6 @@ var create = function(req, res, next) {
 module.exports = {
   index: index,
   show:  show,
-  create: create
+  create: create,
+  get: get
 };

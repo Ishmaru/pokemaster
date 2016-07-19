@@ -12,7 +12,8 @@ var userSchema = new mongoose.Schema({
   greatballs:       { type: Number, default: 1 },
   masterballs:      { type: Number, default: 0},
   fullrestore:      { type: Number, default: 5 },
-  evolution_stone:  { type: Number, default: 0 }
+  evolution_stone:  { type: Number, default: 0 },
+  money:            { type: Number, default: 1000 }
 });
 
 var User = mongoose.model('User', userSchema);
