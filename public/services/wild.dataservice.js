@@ -33,8 +33,9 @@
 
     function getWild() {
       $http.get("api/pokemon/get").then(function(response) {
-        console.log(response.data);
-        wild.wildmon = response.data;
+        console.log(response.data.body);
+        wild.wildmon = JSON.parse(response.data.body);
+        console.log(wild.wildmon);
       }, function(errRes) {
         console.error('Error', errRes);
       });

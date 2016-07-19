@@ -11,7 +11,7 @@
     var battle = this;
 
     battle.order = [];
-    battle.currentWild = WildDataService.wildmon[0];
+    battle.currentWild = WildDataService.wildmon;
     battle.pokemons = TrainerDataService.pokemon;
     battle.currentPoke = TrainerDataService.pokemon[0];
     battle.kill = WildDataService.kill;
