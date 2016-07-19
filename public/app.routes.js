@@ -11,7 +11,7 @@
     $stateProvider
       .state("login", {
         url: "/",
-        templateUrl: "index.html",
+        templateUrl: "templates/login.html",
         controller: "BattleController",
         controllerAs: "battle"
       })

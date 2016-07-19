@@ -7,10 +7,9 @@ var debug        = require('debug')('app:http');
 var cookieParser = require('cookie-parser');
 
 // Load local libraries.
-var env      = require('./config/environment'),
-    mongoose = require('./config/database'),
-    routes   = require('./config/routes');
-
+var env       = require('./config/environment'),
+    mongoose  = require('./config/database'),
+    apiRoutes = require('./config/routes');
 // Instantiate a server application.
 var app = express();
 
@@ -18,8 +17,8 @@ var app = express();
 app.set('title', env.TITLE);
 app.set('safe-title', env.SAFE_TITLE);
 // EJS view engine config
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 // Create local variables for use thoughout the application.
 app.locals.title = app.get('title');
@@ -37,6 +36,7 @@ app.use(cookieParser('notsosecretnowareyou'));
 
 // Routes to static assets. Uncomment below if you have a favicon.
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use('/api', apiRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Useful for debugging the state of requests.
@@ -47,8 +47,7 @@ app.use(debugReq);
 // });
 
 // Defines all of our "dynamic" routes.
-app.use('/', routes);
-
+// app.use('/', routes);
 // Catches all 404 routes.
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -61,7 +60,7 @@ app.use(function(err, req, res, next) {
   // In development, the error handler will print stacktrace.
   err = (app.get('env') === 'development') ? err : {};
   res.status(err.status || 500);
-  res.render('error', {
+  res.json({
     message: err.message,
     error: err
   });
