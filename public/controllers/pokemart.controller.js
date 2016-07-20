@@ -10,5 +10,5 @@
   function PokemartController(TrainerDataService, $state, $log, $http) {
     var shop = this;
 
-
+  }
 })();

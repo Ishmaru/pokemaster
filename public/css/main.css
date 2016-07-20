@@ -16,3 +16,15 @@ a { color: #00B7FF; }
 .screen {
   image-rendering: pixelated;
 }
+
+.wild {
+  margin-bottom: 128px;
+}
+
+.background {
+  width: 500px;
+  height: 320px;
+  background-image: url("http://orig12.deviantart.net/e841/f/2012/348/9/c/gigantic_battle_background_by_kyle_dove-d5nwldw.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}

@@ -1,6 +1,11 @@
+<!-- <a ng-click="battle.test()">test</a> -->
 <div>
-  <img class="screen enemyPoke" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}">
-  <img class="screen playerPoke" ng-src="{{battle.currentPoke.sprites.back_default}}" alt="{{battle.currentPoke.name}}">
-  <p class="screen stats">{{battle.currentPoke.name}}</p>
-  <p class="screen stats">HP: {{battle.currentPoke.curr_hp}}</p>
+  <div class="screen background">
+    <img class="screen playerPoke" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
+    <img class="wild screen enemyPoke" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
+    <p class="screen stats">{{battle.currentPoke[0].name}}</p>
+    <p class="screen stats">HP: {{battle.currentPoke[0].curr_hp}}</p>
+    <p class="screen stats">Name:{{battle.currentWild.name}}</p>
+    <p class="screen stats">HP: {{battle.currentWild.curr_hp}}</p>
+  </div>
 </div>

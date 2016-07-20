@@ -11,9 +11,9 @@
     $stateProvider
       .state("login", {
         url: "/",
-        templateUrl: "templates/login.html",
-        controller: "BattleController",
-        controllerAs: "battle"
+        templateUrl: "templates/login.html"
+        // controller: "BattleController",
+        // controllerAs: "battle"
       })
       .state("game", {
         url: "/game",

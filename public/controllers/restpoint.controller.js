@@ -10,5 +10,5 @@
   function RestpointController(TrainerDataService, $state, $log, $http) {
     var rest = this;
 
-
+  }
 })();
