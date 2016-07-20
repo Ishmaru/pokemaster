@@ -59,9 +59,9 @@ var pokemonSchema = new mongoose.Schema({
     }
   ],
   user:    { type: mongoose.Schema.Types.ObjectId, ref:'User' },
-  level:   { type: Number, default: 1 },
-  exp:     { type: Number, default: 0 },
-  next_lv: { type: Number, default: 300 },
+  level:   { required: true, type: Number, default: 1 },
+  exp:     { required: true, type: Number, default: 0 },
+  next_lv: { required: true, type: Number, default: 300 },
   curr_hp: Number
 });
 

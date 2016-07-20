@@ -29,7 +29,7 @@
     });
 
     function kill() {
-      expReward(battle.order[0], battle.order[1]);
+      expReward(battle.currentPoke, battle.currentWild);
       if (battle.currentWild.curr_hp <= 1) {
         battle.currentWild = null;
         getPokemon();
@@ -103,6 +103,8 @@
     }
 
     function expReward(pokeWin, pokeLoose) {
+      console.log("pokeLoose", pokeLoose);
+      console.log("pokeWin", pokeWin);
       pokeWin.exp += pokeLoose.base_experience;
       console.log(`you have gained: ${pokeLoose.base_experience}`);
       // battle.order[0].exp += battle.order[1].base_experience;
