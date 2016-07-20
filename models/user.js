@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
-    debug    = require('debug')('app:models');
+    debug    = require('debug')('app:models'),
+    bcrypt   = require('bcrypt-nodejs');
 
-var userSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
   name:             String,
   email:            String,
   avatar:           String,
@@ -13,15 +14,49 @@ var userSchema = new mongoose.Schema({
   masterballs:      { type: Number, default: 0},
   fullrestore:      { type: Number, default: 5 },
   evolution_stone:  { type: Number, default: 0 },
-  money:            { type: Number, default: 1000 }
+  money:            { type: Number, default: 1000 },
+  password:    { type: String, required: true, select: false }
 });
 
-var User = mongoose.model('User', userSchema);
 
-userSchema.methods.pokemons = function(callback) {
-  Pokemon.find({user: this._id}, function(err, pokemon) {
+// exclude password
+UserSchema.set('toJSON', {
+  transform: function(doc, ret) {
+    delete ret.password;
+    return ret;
+  }
+});
+
+UserSchema.pre('save', function(next) {
+  var user = this;
+
+  // hash the password only if the password has been changed or user is new
+  if (!user.isModified('password')) return next();
+
+  // generate the hash
+  bcrypt.hash(user.password, null, null, function(err, hash) {
+    if (err) return next(err);
+
+    // change the password to the hashed version
+    user.password = hash;
+    next();
+  });
+});
+
+
+UserSchema.methods.comparePassword = function(password) {
+  var user = this;
+
+  console.log(this);
+
+  return bcrypt.compareSync(password, user.password);
+};
+
+UserSchema.methods.pokemons = function(callback) {
+  mongoose.model('Pokemon').find({user: this._id}, function(err, pokemon) {
     callback(err, pokemon);
   });
 };
 
+var User = mongoose.model('User', UserSchema);
 module.exports = User;

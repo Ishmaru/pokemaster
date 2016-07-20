@@ -15,7 +15,8 @@ var users = [
     greatballs: 50,
     masterballs: 1,
     fullrestore: 20,
-    evolution_stone: 1
+    evolution_stone: 1,
+    password: 123456
   },
 
   { // 1
@@ -28,7 +29,9 @@ var users = [
     greatballs: 50,
     masterballs: 1,
     fullrestore: 20,
-    evolution_stone: 1
+    evolution_stone: 1,
+    password: 123456
+
   }
 ];
 
