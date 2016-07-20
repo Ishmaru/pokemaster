@@ -23,7 +23,7 @@ var show = function(req, res, next){
   });
 };
 
-var create = function(req, res, next) {
+var create = function(req, res) {
   var capture    = new Pokemon();
   capture        = req.body;
   capture.save(function(err, savedPokemon) {

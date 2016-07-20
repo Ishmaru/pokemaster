@@ -12,7 +12,8 @@
       // pokemon: [],
 
       getPoke: function() {
-        var user = '578e805bac9ab9181610f28c';
+        var user = '578e805bac9ab9181610f28d';
+        // var user = '578e805bac9ab9181610f28c';
         return $http.get(`api/pokemon/${user}`);
       },
 
