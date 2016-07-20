@@ -8,17 +8,14 @@
   WildDataService.$inject = ['$state', '$log', '$http'];
 
   function WildDataService($state, $log, $http) {
+    // var wild = this;
     return {
-      wildmon: [],
 
       getWild: function() {
         return $http.get('api/pokemon/get');
       },
 
-      kill: function() {
-        this.wildmon.shift();
-        this.getWild();
-      },
+
 
       addStats: function() {
         this.wildmon[0].stats.forEach(function(i){

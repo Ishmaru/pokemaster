@@ -28,3 +28,7 @@ a { color: #00B7FF; }
   background-size: 100%;
   background-repeat: no-repeat;
 }
+
+.frame {
+  overflow: hidden;
+}

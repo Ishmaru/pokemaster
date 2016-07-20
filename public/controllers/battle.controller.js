@@ -11,18 +11,24 @@
     var battle = this;
 
     battle.order = [];
+    battle.attack = turn;
 
-    WildDataService.getWild().then(function(response) {
-      battle.currentWild = JSON.parse(response.data.body);
-      battle.currentWild.curr_hp = battle.currentWild.stats[5].base_stat;
-    });
+    function getPokemon() {
+      WildDataService.getWild().then(function(response) {
+        battle.currentWild = JSON.parse(response.data.body);
+        battle.currentWild.curr_hp = battle.currentWild.stats[5].base_stat;
+      });
+    }
+    // getPokemon();
 
     TrainerDataService.getPoke().then(function(response) {
       battle.currentPoke = response.data;
     });
 
-    battle.kill = WildDataService.kill;
-
+    function kill() {
+      expReward(battle.order[0], battle.order[1]);
+      getPokemon();
+    };
 
     function attackCalc() {
       battle.order[1].currHp -= Math.max(1, (Math.floor(Math.random() * (battle.order[0].stats[4].base_stat + 1)) - battle.order[1].stat[3].base_stat));
@@ -34,33 +40,53 @@
     function checkPriority(player, enemy) {
       // return (player.stats[0].base_stat >= enemy.stats[0].base_stat) ? player : enemy;
       if (player.stats[0].base_stat >= enemy.stats[0].base_stat) {
+        console.log(player.stats[0].base_stat);
+        console.log(enemy.stats[0].base_stat);
         battle.order.push(player);
         battle.order.push(enemy);
       } else {
+        console.log(player.stats[0].base_stat);
+        console.log(enemy.stats[0].base_stat);
         battle.order.push(enemy);
         battle.order.push(player);
       }
+
+      console.log(battle.order);
+    };
+
+    function dodgeCalc(attacker, defender) {
+      var defLuck = (Math.floor(Math.random() * (defender.stats[0].base_stat)));
+      var attLuck = attacker.stats[4].base_stat;
+      console.log(defLuck);
+      console.log(attLuck);
+      return (defLuck < attLuck) ? true : false;
+    };
+
+    function attackCalc(attacker, defender) {
+      defender.curr_hp -= Math.max(1, (Math.floor(Math.random() * (attacker.stats[4].base_stat + 1)) - attacker.stats[3].base_stat));
+      console.log('hit', defender.name, defender.curr_hp);
     };
 
     function dammage() {
-      dodgeCalc() ? attackCalc() : missed();
+      if (dodgeCalc(battle.order[0], battle.order[1])) attackCalc(battle.order[0], battle.order[1]);
     };
 
     function turn(){
-      checkPriority(battle.currentPoke, battle.currentWild);
-      for (var i = 0; i < 1; i++) {
-        battle.dammage();
+      checkPriority(battle.currentPoke[0], battle.currentWild);
+      for (var i = 0; i < 2; i++) {
+        dammage();
         var change = battle.order.shift();
         battle.order.push(change);
+        checkPoke(battle.order[1]);
       }
       battle.order = [];
     };
 
 
-    function checkPoke(){
-      if (battle.order[1].currHp < 1) {
-        battle.expReward();
-        console.log(`${battle.currentPoke.name} has fainted!`);
+    function checkPoke(pokemon){
+      if (pokemon.curr_hp < 1) {
+        console.log(`${pokemon.name} has fainted!`);
+        kill(pokemon);
       }
     }
 
@@ -68,15 +94,17 @@
       (Math.floor(Math.random() * (100 + (battle.order[1].currHp / 2))) < chance) ? battle.postPoke() : console.log("Failed")
     }
 
-    function expReward() {
-      battle.order[0].exp += battle.order[1].base_experience;
+    function expReward(pokeWin, pokeLoose) {
+      pokeWin.exp += pokeLoose.base_experience;
+      console.log(pokeloose.base_experience);
+      // battle.order[0].exp += battle.order[1].base_experience;
     }
 
-    function postPoke() {
-      $http.post('/api/pokemon', battle.currentWild)
+    function postPoke(pokemon) {
+      $http.post('/api/pokemon', pokemon)
         .then(function(response) {
           console.log(response);
-          battle.kill;
+          kill(pokemon);
         });
     }
   }
@@ -117,13 +145,6 @@
     //   return Math.max(1, (Math.floor(Math.random() * (player.stats[4].base_stat + 1)) - enemy.stat[3].base_stat));
     // };
 
-    // function dodgeCalc(player, enemy) {
-    //   return ((Math.floor(Math.random() * (enemy.stats[0].base_stat + 1) > (player.stats[4].base_stat + 1)))) ? true : false;
-    // };
-
-    // function attackCalc() {
-    //   battle.order[1].stats[5].base_stat -= Math.max(1, (Math.floor(Math.random() * (battle.order[0].stats[4].base_stat + 1)) - battle.order[1].stat[3].base_stat));
-    // };
 
     // function test() {
     //   battle.currentWild = "WildDataService.wildmon";
