@@ -14,7 +14,7 @@
     battle.attack = turn;
     battle.capture = capture;
     battle.flee = flee;
-
+    battle.select = TrainerDataService.select;
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
@@ -29,23 +29,22 @@
     });
 
     function kill() {
-      expReward(battle.currentPoke, battle.currentWild);
+      expReward(battle.currentPoke[0], battle.currentWild);
       if (battle.currentWild.curr_hp <= 1) {
         battle.currentWild = null;
         getPokemon();
+      }
+      if (battle.currentPoke[0].curr_hp <= 1) {
+        TrainerDataService.faint(battle.currentPoke, battle.currentPoke[0]);
       }
     };
 
     function checkPriority(player, enemy) {
       // return (player.stats[0].base_stat >= enemy.stats[0].base_stat) ? player : enemy;
       if (player.stats[0].base_stat >= enemy.stats[0].base_stat) {
-        console.log(player.stats[0].base_stat);
-        console.log(enemy.stats[0].base_stat);
         battle.order.push(player);
         battle.order.push(enemy);
       } else {
-        console.log(player.stats[0].base_stat);
-        console.log(enemy.stats[0].base_stat);
         battle.order.push(enemy);
         battle.order.push(player);
       }
@@ -56,8 +55,6 @@
     function dodgeCalc(attacker, defender) {
       var defLuck = (Math.floor(Math.random() * (defender.stats[0].base_stat)));
       var attLuck = attacker.stats[4].base_stat;
-      console.log(defLuck);
-      console.log(attLuck);
       return (defLuck < attLuck) ? true : false;
     };
 
@@ -103,20 +100,21 @@
     }
 
     function expReward(pokeWin, pokeLoose) {
-      console.log("pokeLoose", pokeLoose);
-      console.log("pokeWin", pokeWin);
+      console.log('winner', pokeWin)
       pokeWin.exp += pokeLoose.base_experience;
       console.log(`you have gained: ${pokeLoose.base_experience}`);
-      // battle.order[0].exp += battle.order[1].base_experience;
+      TrainerDataService.levelUp(pokeWin);
     }
 
     function postPoke(pokemon) {
       $http.post('/api/pokemon', pokemon)
         .then(function(response) {
           console.log(response);
-          kill(pokemon);
+          battle.currentWild = null;
+          getPokemon();
         });
     }
+
 
     function flee() {
       battle.currentWild = null;

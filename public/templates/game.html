@@ -10,10 +10,18 @@
     <button ng-click="battle.capture(50, battle.currentWild)" class="item button">Item</button>
     <button class="pokemon button">Pokemon</button>
     <button ng-click="battle.flee()" class="flee button">Flee</button>
+    <ul class="pokemon-list">
+      <li ng-repeat="pokemon in battle.currentPoke" class="sm-poke button">
+        <img class="screen playerPoke" ng-click="battle.select(battle.currentPoke, pokemon)" ng-show="pokemon" ng-src="{{pokemon.sprites.front_default}}" alt="{{pokemon.name}}"  height="40" width="40">
+      </li>
+    </ul>
+
 
   </div>
-  <p class="screen stats">{{battle.currentPoke[0].name}}</p>
+  <p class="screen stats">Name: {{battle.currentPoke[0].name}}</p>
   <p class="screen stats">HP: {{battle.currentPoke[0].curr_hp}}</p>
+  <p class="screen stats">EXP: {{battle.currentPoke[0].exp}}</p>
+  <p class="screen stats">LV: {{battle.currentPoke[0].level}}</p>
   <p class="screen stats">Name:{{battle.currentWild.name}}</p>
   <p class="screen stats">HP: {{battle.currentWild.curr_hp}}</p>
 </div>

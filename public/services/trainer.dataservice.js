@@ -9,6 +9,7 @@
 
   function TrainerDataService($state, $log, $http) {
     return {
+      // var trainer = this;
       // pokemon: [],
 
       getPoke: function() {
@@ -17,18 +18,15 @@
         return $http.get(`api/pokemon/${user}`);
       },
 
-      index: function(poke) {
-        return trainer.pokemon.indexOf(poke);
+      faint: function(arr, poke) {
+        poke.curr_hp = 1;
+        var change = arr.splice(arr.indexOf(poke), 1);
+        arr.push(change[0]);
       },
 
-      swap: function(poke) {
-        var change = this.pokemon.splice(index(poke), 1);
-        this.pokemon.push(change);
-      },
-
-      faint: function(pokemon) {
-        pokemon.currHp = 1;
-        swap(pokemon);
+      select: function(arr, poke) {
+        var change = arr.splice(arr.indexOf(poke), 1);
+        arr.unshift(change[0]);
       },
 
       levelUp: function(pokemon) {
