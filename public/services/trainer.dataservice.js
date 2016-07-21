@@ -34,14 +34,12 @@
           pokemon.level += 1;
           pokemon.exp -= pokemon.next_lv;
           pokemon.next_lv *= 1.5;
+          pokemon.stats.forEach(function(i){
+            i.base_stat *= (0.40 * pokemon.level);
+            console.log(i.base_stat);
+          });
+          pokemon.curr_hp = pokemon.stats[5].base_stat;
         }
-      },
-
-      addStats: function(pokemon) {
-        pokemon.stats.forEach(function(i){
-          i.base_stat *= (0.40 * pokemon.level);
-        });
-        pokemon.currHp = pokemon.stats[5].base_stat;
       }
     }
   }
