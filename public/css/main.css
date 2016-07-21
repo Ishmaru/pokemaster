@@ -58,4 +58,35 @@ a { color: #00B7FF; }
 .window {
   width: 700px;
   height: 400px;
+  margin: auto;
+}
+
+.form-box {
+  color: black;
+  margin: 50px;
+}
+
+.player-poke {
+  position: relative;
+  float: right;
+}
+
+.pokemon-list {
+  width: 200px;
+  height: 200px;
+}
+
+.box {
+  width: 150px;
+  height: 150px;
+  margin: 20px;
+}
+
+.status {
+  width:500px;
+}
+
+.less-em {
+  font-size: 0.7em;
+  margin: 1px;
 }

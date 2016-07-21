@@ -5,7 +5,7 @@
     .module("pokeMaster")
     .controller("LoginController", LoginController);
 
-  LoginController.$inject = ["$state", "userDataService", "$log", "authService"];
+  LoginController.$inject = ["$state", "UserDataService", "$log", "authService"];
 
   function LoginController($state, userDataService, $log, authService) {
     var vm = this;
@@ -18,10 +18,11 @@
     vm.loginData;
 
     function login() {
-      authService.login(vm.loginData.phoneNumber, vm.loginData.password)
+      console.log('hey');
+      authService.login(vm.loginData.email, vm.loginData.password)
         .then(function(res) {
           $log.log(res.data);
-          $state.go('triumphs');
+          $state.go('game');
         });
     };
 

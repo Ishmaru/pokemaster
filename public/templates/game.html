@@ -1,28 +1,40 @@
 <!-- <a ng-click="battle.test()">test</a> -->
 <div>
-<div class="window">
-  <div class="screen background frame block">
-    <img class="screen playerPoke" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
-    <img class="wild screen enemyPoke" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
+  <div class="window">
+    <div class="screen background frame block">
+      <img class="screen playerPoke" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
+      <img class="wild screen enemyPoke" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
+    </div>
+    <div class="battle-menu block right">
+      <button ng-click="battle.attack()" class="attack">ATTACK</button>
+      <button ng-click="battle.capture(50, battle.currentWild)" class="item">Item</button>
+      <button class="pokemon">Pokemon</button>
+      <button ng-click="battle.flee()" class="flee">Flee</button>
+      <div class="pokemon-list">
+        <ul>
+          <li ng-repeat="pokemon in battle.currentPoke" class="sm-poke block">
+            <img class="screen player_poke" ng-click="battle.select(battle.currentPoke, pokemon)" ng-show="pokemon" ng-src="{{pokemon.sprites.front_default}}" alt="{{pokemon.name}}"  height="40" width="40">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="status">
+        <div class="box block">
+          <p class="screen stats">Name: {{battle.currentPoke[0].name}}</p>
+          <p class="screen stats">HP: {{battle.currentPoke[0].curr_hp}}</p>
+          <div class="less-em">
+            <p class="screen stats">EXP: {{battle.currentPoke[0].exp}}</p>
+            <p class="screen stats">LV: {{battle.currentPoke[0].level}}</p>
+          </div>
+        </div>
+        <div class="box block">
+          <p class="screen stats">Name:{{battle.currentWild.name}}</p>
+          <p class="screen stats">HP: {{battle.currentWild.curr_hp}}</p>
+          <div class="less-em">
+            <p class="screen stats">EXP: {{battle.currentWild.base_experence}}</p>
+            <p class="screen stats">Strength: {{battle.currentWild.stats[4].base_stat}}</p>
+          </div>
+        </div>
+    </div>
   </div>
-  <div class="battle-menu block right">
-    <button ng-click="battle.attack()" class="attack button">ATTACK</button>
-    <button ng-click="battle.capture(50, battle.currentWild)" class="item button">Item</button>
-    <button class="pokemon button">Pokemon</button>
-    <button ng-click="battle.flee()" class="flee button">Flee</button>
-    <ul class="pokemon-list">
-      <li ng-repeat="pokemon in battle.currentPoke" class="sm-poke button">
-        <img class="screen playerPoke" ng-click="battle.select(battle.currentPoke, pokemon)" ng-show="pokemon" ng-src="{{pokemon.sprites.front_default}}" alt="{{pokemon.name}}"  height="40" width="40">
-      </li>
-    </ul>
-
-
-  </div>
-  <p class="screen stats">Name: {{battle.currentPoke[0].name}}</p>
-  <p class="screen stats">HP: {{battle.currentPoke[0].curr_hp}}</p>
-  <p class="screen stats">EXP: {{battle.currentPoke[0].exp}}</p>
-  <p class="screen stats">LV: {{battle.currentPoke[0].level}}</p>
-  <p class="screen stats">Name:{{battle.currentWild.name}}</p>
-  <p class="screen stats">HP: {{battle.currentWild.curr_hp}}</p>
-</div>
 </div>

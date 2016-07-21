@@ -10,7 +10,7 @@
   function UserDataService($state, $log, $http) {
     var user = {};
 
-  return user;
+    return user;
   }
 
 })();

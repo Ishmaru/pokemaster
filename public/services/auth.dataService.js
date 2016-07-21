@@ -5,7 +5,7 @@
          .factory('authService',     authService)
          .factory('authInterceptor', authInterceptor);
 
-  authService.$inject     = ["$http", "$q", "authToken", "userDataService", "$state", "$window"];
+  authService.$inject     = ["$http", "$q", "authToken", "UserDataService", "$state", "$window"];
   authToken.$inject       = ["$window"];
   authInterceptor.$inject = ["$q", "$location", "authToken"];
 
