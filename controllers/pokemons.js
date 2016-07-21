@@ -46,31 +46,44 @@ var get = function(req, res, next){
   };
 }
 
+var update = function(req, res) {
+    // console.log(req.body);
+  // var id = req.params.id;
+  console.log("FUCCVCCVKVKHVLUVJKHGVKVKHJVJKVHKJVHJAVHJVHJVHJVC HJZBCVHJSCVHKCBVCKECEKEBCV")
+  var id = req.body._id;
+    // $log.warn(id);
+    console.log(req.body);
+  Pokemon.findById(id, function(err, pokemon) {
+  console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
+    console.log(pokemon);
 
-// var get = function(req, res, next) {
-//   var pokeId = Math.floor(Math.random() * (649 + 1));
-//   $http.get(`http://pokeapi.co/api/v2/pokemon/${pokeId}/`).then(function(response) {
-//     console.log(response.data);
-//     wild.wildmon = response.data;
-//   )
-// }
+    if (err) {
+      res.send(err);
+    }
+    if (req.body.stats.length > 0) pokemon.stats = req.body.stats;
+    if (req.body.curr_hp !== undefined) pokemon.curr_hp = req.body.curr_hp;
+    if (req.body.exp !== undefined) pokemon.exp = req.body.exp;
+    if (req.body.next_lv !== undefined) pokemon.next_lv = req.body.next_lv;
+    if (req.body.level !== undefined) pokemon.level = req.body.level;
 
-// var show = function(req, res, next){
-//   Pokemon.findById(req.params.id, function(err, user) {
-//     if (err) {
-//       res.json({message: 'Could not find user because ' + err});
-//     } else if (!user) {
-//       res.json({message: 'No pokemon with this id.'});
-//     } else {
-//       res.send('pokemons/show', {pokemons: pokemons});
-//     }
-//   });
-// };
+    pokemon.save(function(err, response) {
+    console.log("xxcddjkvbfsb zkfb zkjb zjzxbvzfbnmvzbf,b,jfb");
+    console.log(response);
+      if (err) {
+        res.send(err);
+      }
+      console.log("Update");
+      res.json(response);
+    });
+  });
+}
+
 
 module.exports = {
   index: index,
   show:  show,
   create: create,
+  update: update,
   get: get
 };

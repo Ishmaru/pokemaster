@@ -5,9 +5,9 @@
       .module('pokeMaster')
       .factory('WildDataService', WildDataService);
 
-  WildDataService.$inject = ['$state', '$log', '$http'];
+  WildDataService.$inject = ['$state', '$log', '$http', "UserDataService"];
 
-  function WildDataService($state, $log, $http) {
+  function WildDataService($state, $log, $http, UserDataService) {
     // var wild = this;
     return {
 
@@ -78,7 +78,8 @@
               }
             }
           ],
-          user:    '578e805bac9ab9181610f28d',
+
+          user:    UserDataService.user._id,
           curr_hp: input.curr_hp
         }
         return trimmed;

@@ -8,9 +8,11 @@
   UserDataService.$inject = ["$state", "$log", "$http"];
 
   function UserDataService($state, $log, $http) {
-    var user = {};
+    var userFactory = {
+      user: {}
+    };
 
-    return user;
+    return userFactory;
   }
 
 })();

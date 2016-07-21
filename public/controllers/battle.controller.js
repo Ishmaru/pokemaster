@@ -15,6 +15,7 @@
     battle.capture = capture;
     battle.flee = flee;
     battle.select = TrainerDataService.select;
+    battle.update = updatePokemon;
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
@@ -104,6 +105,7 @@
       pokeWin.exp += pokeLoose.base_experience;
       console.log(`you have gained: ${pokeLoose.base_experience}`);
       TrainerDataService.levelUp(pokeWin);
+      updatePokemon(battle.currentPoke[0]._id, battle.currentPoke[0]);
     }
 
     function postPoke(pokemon) {
@@ -115,20 +117,20 @@
         });
     }
 
-
     function flee() {
       battle.currentWild = null;
       console.log("you have fled");
       getPokemon();
     }
-    // function nextPoke() {
-    //   if (battle.currentPoke.curr_hp <= 1){
-    //     // end game
-    //   } else if {
 
-    //   }
-    // }
+    function updatePokemon(id, pokemon) {
+      console.log(id, pokemon);
+      $http.put('/api/pokemon/' + id, pokemon).then(function(response) {
+      }, function(errRes) {
+        console.log('Cannot Put', errRes);
+      }).then(TrainerDataService.getPoke());
+    }
+
   }
-
 
 })();

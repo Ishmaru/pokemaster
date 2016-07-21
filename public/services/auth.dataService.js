@@ -31,6 +31,12 @@
 
           // set userDataService.user to the logged in user
           userDataService.user = data.user;
+          // userDataService.user._id = data._id;
+          // userDataService.user.name = data.name;
+          // userDataService.user.email = data.email;
+          // CHECK IF ISSUES ^^^
+
+
           console.log("check it out", userDataService);
           return data;
         });
@@ -58,7 +64,10 @@
     authFactory.setUser = function() {
       var token = authToken.getToken().split('.')[1];
       var user = JSON.parse($window.atob(token));
-      userDataService.user = user;
+      console.log(user);
+      userDataService.user._id = user._id;
+      userDataService.user.name = user.name;
+      userDataService.user.email = user.email;
       console.log(userDataService);
       return user;
     };
