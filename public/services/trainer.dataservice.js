@@ -57,11 +57,16 @@
 
       checkFail: function(arr) {
         this.defeated ++;
-        if (arr.length <= defeated) {
+        if (arr.length <= this.defeated) {
           console.log('defeated');
-          battle.gameOver();
+          this.gameOver();
         }
+      },
+
+      gameOver: function() {
+        $state.go('gameover')
       }
+
     }
   }
 

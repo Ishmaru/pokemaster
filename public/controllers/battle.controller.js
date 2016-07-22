@@ -16,7 +16,6 @@
     battle.flee = flee;
     battle.select = TrainerDataService.select;
     battle.update = updatePokemon;
-    battle.gameOver = gameOver;
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
@@ -34,6 +33,7 @@
       if (battle.currentWild.curr_hp <= 1) {
         expReward(battle.currentPoke[0], battle.currentWild);
         battle.currentWild = null;
+        TrainerDataService.defeated = 0;
         getPokemon();
       }
       if (battle.currentPoke[0].curr_hp <= 1) {
@@ -133,10 +133,6 @@
       }, function(errRes) {
         console.log('Cannot Put', errRes);
       }).then(TrainerDataService.getPoke());
-    }
-
-    function gameOver() {
-      $state.go('gameover')
     }
 
   }
