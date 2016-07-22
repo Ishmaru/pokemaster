@@ -42,8 +42,7 @@
       }
     };
 
-    function checkPriority(player, enemy) {
-      // return (player.stats[0].base_stat >= enemy.stats[0].base_stat) ? player : enemy;
+    function checkPriority(enemy, player) {
       if (player.stats[0].base_stat >= enemy.stats[0].base_stat) {
         battle.order.push(player);
         battle.order.push(enemy);
@@ -51,11 +50,10 @@
         battle.order.push(enemy);
         battle.order.push(player);
       }
-
       console.log(battle.order);
     };
 
-    function dodgeCalc(attacker, defender) {
+    function dodgeCalc(attacker, defender = battle.currentPoke[0]) {
       var defLuck = (Math.floor(Math.random() * (defender.stats[0].base_stat)));
       var attLuck = attacker.stats[4].base_stat;
       return (defLuck < attLuck) ? true : false;
@@ -69,7 +67,7 @@
       return Math.floor(Math.random() * 2) + 1;
     };
 
-    function attackCalc(attacker, defender) {
+    function attackCalc(attacker, defender = battle.currentPoke[0]) {
       defender.curr_hp -= Math.max(2, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat));
       console.log('hit', defender.name, defender.curr_hp);
       // battle.order[1].currHp -= Math.max(1, (Math.floor(Math.random() * battle.order[0].stats[4].base_stat) - battle.order[1].stat[3].base_stat));
@@ -79,8 +77,18 @@
       console.log('missed');
     }
 
-    function turn(){
-      checkPriority(battle.currentPoke[0], battle.currentWild);
+    function missed() {
+      console.log('failed');
+      turn(battle.currentWild);
+    }
+
+    function turn(enemy, player){
+      // checkPriority(battle.currentWild, battle.currentPoke[0]);
+      if (player) {
+        checkPriority(enemy, player);
+      } else {
+        battle.order.push(enemy);
+      };
       for (var i = 0; i < 2; i++) {
         dammage();
         checkPoke(battle.order[1]);
@@ -92,7 +100,7 @@
     };
 
 
-    function checkPoke(pokemon){
+    function checkPoke(pokemon = battle.currentPoke[0]){
       if (pokemon.curr_hp < 1) {
         console.log(`${pokemon.name} has fainted!`);
         kill(pokemon);
@@ -100,7 +108,7 @@
     }
 
     function capture(chance, pokemon){
-      (Math.floor(Math.random() * (100 + (pokemon.curr_hp / 2))) < chance) ? postPoke(WildDataService.prepareToSave(pokemon)) : console.log("Failed")
+      (Math.floor(Math.random() * (100 + (pokemon.curr_hp / 2))) < chance) ? postPoke(WildDataService.prepareToSave(pokemon)) : missed()
     }
 
     function expReward(pokeWin, pokeLoose) {
@@ -124,6 +132,7 @@
     function flee() {
       battle.currentWild = null;
       console.log("you have fled");
+      TrainerDataService.restore(battle.currentPoke);
       getPokemon();
     }
 

@@ -46,12 +46,14 @@
 
       restore: function(arr) {
         arr.forEach(function(i){
-          if (i.curr_hp < i.stats[5].base_stat) {
-            i.curr_hp += 5;
-          };
-          if (i.curr_hp > i.stats[5].base_stat) {
-            i.curr_hp = i.stats[5].base_stat;
-          };
+          if (i > 0) {
+            if (i.curr_hp < i.stats[5].base_stat) {
+              i.curr_hp += 5;
+            };
+            if (i.curr_hp > i.stats[5].base_stat) {
+              i.curr_hp = i.stats[5].base_stat;
+            };
+          }
         });
       },
 

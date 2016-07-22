@@ -90,3 +90,7 @@ a { color: #00B7FF; }
   font-size: 0.7em;
   margin: 1px;
 }
+
+.overlay {
+  position: absolute;
+}

@@ -2,11 +2,11 @@
 <div>
   <div class="window">
     <div class="screen background frame block">
-      <img class="screen playerPoke" ng-click="battle.update(battle.currentPoke[0]._id, battle.currentPoke[0])" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
-      <img class="wild screen enemyPoke" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
+      <img class="screen playerPoke animate" ng-click="battle.update(battle.currentPoke[0]._id, battle.currentPoke[0])" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
+      <img class="wild screen enemyPoke animate" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
     </div>
     <div class="battle-menu block right">
-      <button ng-click="battle.attack()" class="attack">ATTACK</button>
+      <button ng-click="battle.attack(battle.currentWild, battle.currentPoke[0])" class="attack">ATTACK</button>
       <button ng-click="battle.capture(30, battle.currentWild)" class="pokeball">Pokeball</button>
       <button ng-click="battle.flee()" class="flee">Flee</button>
       <div class="pokemon-list">
