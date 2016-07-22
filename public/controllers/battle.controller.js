@@ -78,15 +78,10 @@
     };
 
     function attackCalc(attacker, defender = battle.currentPoke[0]) {
-      defender.hurt = 'jello';
-      defender.curr_hp -= parseInt(Math.max(2, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
+      defender.hurt = '';
+      defender.curr_hp -= parseInt(Math.max(10, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
       console.log('hit', defender.name, defender.curr_hp);
       setTimeout(function(){ defender.hurt = ''; }, 1000);
-      // if (defender.user) {
-      //   battle.player = 'jello';
-      // } else {
-      //   battle.enemy = 'jello';
-      // }
     };
 
     function missed() {
