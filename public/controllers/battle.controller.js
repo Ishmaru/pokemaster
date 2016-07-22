@@ -16,8 +16,6 @@
     battle.flee = flee;
     battle.select = TrainerDataService.select;
     battle.update = updatePokemon;
-    // battle.player = '';
-    // battle.enemy = '';
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
