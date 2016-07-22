@@ -24,7 +24,7 @@
         battle.currentWild.curr_hp = battle.currentWild.stats[5].base_stat;
       });
     }
-    // getPokemon();
+    getPokemon();
 
     TrainerDataService.getPoke().then(function(response) {
       battle.currentPoke = response.data;

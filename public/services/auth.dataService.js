@@ -1,4 +1,5 @@
 (function() {
+  "use strict";
 
   angular.module('pokeMaster')
          .factory('authToken',       authToken)
