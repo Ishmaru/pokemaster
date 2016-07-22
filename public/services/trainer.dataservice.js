@@ -13,8 +13,6 @@
       defeated: 0,
 
       getPoke: function() {
-        // var user = '578e805bac9ab9181610f28d';
-        // var user = '578e805bac9ab9181610f28c';
         var user = UserDataService.user._id;
         return $http.get(`api/pokemon/${user}`);
       },
@@ -65,8 +63,12 @@
 
       gameOver: function() {
         $state.go('gameover')
-      }
+      },
 
+      damageAnimation: function(defender) {
+        defender.hurt = 'jello';
+        setTimeout(function(){ defender.hurt = ''; }, 1000);
+      }
     }
   }
 

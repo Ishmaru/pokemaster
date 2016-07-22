@@ -78,10 +78,9 @@
     };
 
     function attackCalc(attacker, defender = battle.currentPoke[0]) {
-      defender.hurt = '';
+      TrainerDataService.damageAnimation(defender);
       defender.curr_hp -= parseInt(Math.max(10, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
       console.log('hit', defender.name, defender.curr_hp);
-      setTimeout(function(){ defender.hurt = ''; }, 1000);
     };
 
     function missed() {
@@ -144,6 +143,7 @@
           console.log(response);
           battle.currentWild = null;
           getPokemon();
+          TrainerDataService.getPoke();
         });
     }
 
