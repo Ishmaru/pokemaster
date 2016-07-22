@@ -50,7 +50,7 @@
         battle.order.push(enemy);
         battle.order.push(player);
       }
-      console.log(battle.order);
+      // console.log(battle.order);
     };
 
     function dodgeCalc(attacker, defender = battle.currentPoke[0]) {
@@ -60,7 +60,11 @@
     };
 
     function dammage() {
-      if (dodgeCalc(battle.order[0], battle.order[1])) attackCalc(battle.order[0], battle.order[1]);
+      if (battle.order.length > 1) {
+        if (dodgeCalc(battle.order[0], battle.order[1])) attackCalc(battle.order[0], battle.order[1]);
+      } else {
+        if (dodgeCalc(battle.order[0], battle.currentPoke[0])) attackCalc(battle.order[0], battle.currentPoke[0]);
+      }
     };
 
     function superHit() {
@@ -70,7 +74,6 @@
     function attackCalc(attacker, defender = battle.currentPoke[0]) {
       defender.curr_hp -= Math.max(2, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat));
       console.log('hit', defender.name, defender.curr_hp);
-      // battle.order[1].currHp -= Math.max(1, (Math.floor(Math.random() * battle.order[0].stats[4].base_stat) - battle.order[1].stat[3].base_stat));
     };
 
     function missed() {
@@ -83,22 +86,26 @@
     }
 
     function turn(enemy, player){
-      // checkPriority(battle.currentWild, battle.currentPoke[0]);
       if (player) {
         checkPriority(enemy, player);
       } else {
         battle.order.push(enemy);
       };
-      for (var i = 0; i < 2; i++) {
-        dammage();
-        checkPoke(battle.order[1]);
-        var change = battle.order.shift();
-        battle.order.push(change);
-      }
-      battle.order = [];
-      TrainerDataService.restore(battle.currentPoke);
+        setTimeout(function() {
+          dammage();
+          checkPoke(battle.order[1]);
+          var change = battle.order.shift();
+          battle.order.push(change);
+          if (player) {
+            setTimeout(function() {
+              dammage();
+              checkPoke(battle.order[1]);
+              TrainerDataService.restore(battle.currentPoke);
+              battle.order = [];
+            }, 2000);
+          };
+        }, 500);
     };
-
 
     function checkPoke(pokemon = battle.currentPoke[0]){
       if (pokemon.curr_hp < 1) {
@@ -108,7 +115,10 @@
     }
 
     function capture(chance, pokemon){
-      (Math.floor(Math.random() * (100 + (pokemon.curr_hp / 2))) < chance) ? postPoke(WildDataService.prepareToSave(pokemon)) : missed()
+      console.log('Threw Pokeball');
+      setTimeout(function() {
+        (Math.floor(Math.random() * (100 + (pokemon.curr_hp / 2))) < chance) ? postPoke(WildDataService.prepareToSave(pokemon)) : missed()
+      }, 2000);
     }
 
     function expReward(pokeWin, pokeLoose) {
