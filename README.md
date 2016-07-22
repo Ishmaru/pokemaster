@@ -5,6 +5,10 @@
 
 __Pokemon is owned by Nintendo. This app is only intended for practice and learning uses only.__
 
+### Developement:
+
+https://trello.com/b/5uT445EL/poke-masters
+
 ### Technologies:
 
 Angular JS
