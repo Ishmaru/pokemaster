@@ -1,6 +1,7 @@
 # PokeMaster
 
 ##### Experiment Developing a single page game using API's
+![Pokemon](http://2.bp.blogspot.com/-j_GR1Tq5tP0/VbY3ueWy4qI/AAAAAAAAIvE/wCjca8TaU6g/s1600/Logo%2BPokemon.png)
 
 __Pokemon is owned by Nintendo. This app is only intended for practice and learning uses only.__
 
@@ -22,12 +23,13 @@ Mongoose
 PokeApi
 PokeMaster own Api
 
-
 ### Game
 
 Create your trainer, pick your starting Pokemon, and happy collecting!
 You will get randomly selected Pokemon from PokeApi (all Pokemon from red - white);
 You can battle them to increase your Pokemon level, or capture them with your pokeballs.
+
+![Screen](https://raw.githubusercontent.com/Ishmaru/pokemaster/master/Screen%20Shot%202016-07-22%20at%209.43.04%20AM.png)
 
 #### Battling:
 Battles are simple click the attack button to begin a turn.
