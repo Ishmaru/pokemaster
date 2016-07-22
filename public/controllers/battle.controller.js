@@ -16,8 +16,8 @@
     battle.flee = flee;
     battle.select = TrainerDataService.select;
     battle.update = updatePokemon;
-    battle.player = '';
-    battle.enemy = '';
+    // battle.player = '';
+    // battle.enemy = '';
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
@@ -78,13 +78,15 @@
     };
 
     function attackCalc(attacker, defender = battle.currentPoke[0]) {
+      defender.hurt = 'jello';
       defender.curr_hp -= parseInt(Math.max(2, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
       console.log('hit', defender.name, defender.curr_hp);
-      if (defender.user) {
-        battle.player = 'animated';
-      } else {
-        battle.enemy = 'animated';
-      }
+      setTimeout(function(){ defender.hurt = ''; }, 1000);
+      // if (defender.user) {
+      //   battle.player = 'jello';
+      // } else {
+      //   battle.enemy = 'jello';
+      // }
     };
 
     function missed() {
@@ -155,6 +157,7 @@
       console.log("you have fled");
       TrainerDataService.restore(battle.currentPoke);
       getPokemon();
+      TrainerDataService.getPoke()
     }
 
     function updatePokemon(id, pokemon) {

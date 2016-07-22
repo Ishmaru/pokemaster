@@ -2,14 +2,15 @@
 <div>
   <div class="window">
     <div class="screen background frame block">
-      <img ng-class="battle.player" class="screen playerPoke jello" ng-click="battle.update(battle.currentPoke[0]._id, battle.currentPoke[0])" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
-      <img ng-class="battle.enemy" class="wild screen enemyPoke jello" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
+      <img ng-class="battle.currentPoke[0].hurt" class="screen playerPoke animated infinite" ng-click="battle.update(battle.currentPoke[0]._id, battle.currentPoke[0])" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
+      <!-- <img ng-class="battle.enemy" class="wild screen enemyPoke animated infinite" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128"> -->
+      <img ng-class="battle.currentWild.hurt" class="wild screen enemyPoke animated infinite" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
     </div>
     <div class="battle-menu block right">
       <button ng-click="battle.attack(battle.currentWild, battle.currentPoke[0])" class="attack">ATTACK</button>
       <button ng-click="battle.capture(30, battle.currentWild)" class="pokeball">Pokeball</button>
       <button ng-click="battle.flee()" class="flee">Flee</button>
-      <div class="pokemon-list">
+      <div class="pokemon-list show-border">
         <ul>
           <li ng-repeat="pokemon in battle.currentPoke" class="sm-poke block">
             <img class="screen player_poke" ng-click="battle.select(battle.currentPoke, pokemon)" ng-show="pokemon" ng-src="{{pokemon.sprites.front_default}}" alt="{{pokemon.name}}"  height="40" width="40">
@@ -17,7 +18,7 @@
         </ul>
       </div>
     </div>
-    <div class="status">
+    <div class="status show-border">
         <div class="box block">
           <p class="screen stats">Name: {{battle.currentPoke[0].name}}</p>
           <p class="screen stats">HP: {{battle.currentPoke[0].curr_hp}}</p>
