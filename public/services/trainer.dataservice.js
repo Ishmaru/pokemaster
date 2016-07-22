@@ -10,7 +10,7 @@
   function TrainerDataService($state, $log, $http, UserDataService) {
     return {
       // var trainer = this;
-      // pokemon: [],
+      defeated: 0,
 
       getPoke: function() {
         // var user = '578e805bac9ab9181610f28d';
@@ -21,6 +21,7 @@
 
       faint: function(arr, poke) {
         poke.curr_hp = 1;
+        this.checkFail(arr);
         var change = arr.splice(arr.indexOf(poke), 1);
         arr.push(change[0]);
       },
@@ -40,6 +41,25 @@
             console.log(i.base_stat);
           });
           pokemon.curr_hp = pokemon.stats[5].base_stat;
+        }
+      },
+
+      restore: function(arr) {
+        arr.forEach(function(i){
+          if (i.curr_hp < i.stats[5].base_stat) {
+            i.curr_hp += 5;
+          };
+          if (i.curr_hp > i.stats[5].base_stat) {
+            i.curr_hp = i.stats[5].base_stat;
+          };
+        });
+      },
+
+      checkFail: function(arr) {
+        this.defeated ++;
+        if (arr.length <= defeated) {
+          console.log('defeated');
+          battle.gameOver();
         }
       }
     }

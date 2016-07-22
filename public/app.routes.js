@@ -12,8 +12,6 @@
       .state("splash", {
         url: "/",
         templateUrl: "templates/splash.html"
-        // controller: "BattleController",
-        // controllerAs: "battle"
       })
       .state("game", {
         url: "/game",
@@ -26,6 +24,16 @@
         templateUrl: "/templates/login.html",
         controller: "LoginController",
         controllerAs: "vm"
+      })
+      .state("register", {
+        url: "/register",
+        templateUrl: "/templates/register.html",
+        controller: "UserController",
+        controllerAs: "vm"
+      })
+      .state("gameover", {
+        url: "/gameover",
+        templateUrl: "/templates/gameover.html"
       })
     $urlRouterProvider.otherwise("/");
   }

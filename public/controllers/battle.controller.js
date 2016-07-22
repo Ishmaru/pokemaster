@@ -16,6 +16,7 @@
     battle.flee = flee;
     battle.select = TrainerDataService.select;
     battle.update = updatePokemon;
+    battle.gameOver = gameOver;
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
@@ -30,12 +31,13 @@
     });
 
     function kill() {
-      expReward(battle.currentPoke[0], battle.currentWild);
       if (battle.currentWild.curr_hp <= 1) {
+        expReward(battle.currentPoke[0], battle.currentWild);
         battle.currentWild = null;
         getPokemon();
       }
       if (battle.currentPoke[0].curr_hp <= 1) {
+        updatePokemon(battle.currentPoke[0]._id, battle.currentPoke[0]);
         TrainerDataService.faint(battle.currentPoke, battle.currentPoke[0]);
       }
     };
@@ -86,6 +88,7 @@
         battle.order.push(change);
       }
       battle.order = [];
+      TrainerDataService.restore(battle.currentPoke);
     };
 
 
@@ -111,6 +114,7 @@
     function postPoke(pokemon) {
       $http.post('/api/pokemon', pokemon)
         .then(function(response) {
+          expReward(battle.currentPoke[0], battle.currentWild);
           console.log(response);
           battle.currentWild = null;
           getPokemon();
@@ -129,6 +133,10 @@
       }, function(errRes) {
         console.log('Cannot Put', errRes);
       }).then(TrainerDataService.getPoke());
+    }
+
+    function gameOver() {
+      $state.go('gameover')
     }
 
   }
