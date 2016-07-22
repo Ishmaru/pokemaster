@@ -94,3 +94,7 @@ a { color: #00B7FF; }
 .overlay {
   position: absolute;
 }
+
+button {
+  width: 80px;
+}

@@ -49,7 +49,7 @@ var get = function(req, res, next){
 var update = function(req, res) {
     // console.log(req.body);
   // var id = req.params.id;
-  console.log("FUCCVCCVKVKHVLUVJKHGVKVKHJVJKVHKJVHJAVHJVHJVHJVC HJZBCVHJSCVHKCBVCKECEKEBCV")
+  console.log("_______________________________________________________")
   var id = req.body._id;
     // $log.warn(id);
     console.log(req.body);
@@ -61,14 +61,20 @@ var update = function(req, res) {
     if (err) {
       res.send(err);
     }
-    if (req.body.stats.length > 0) pokemon.stats = req.body.stats;
+    // if (req.body.stats.length > 0) pokemon.stats = req.body.stats;
+    if (req.body.stats[0].base_stat) pokemon.stats[0].base_stat = req.body.stats[0].base_stat;
+    if (req.body.stats[1].base_stat) pokemon.stats[1].base_stat = req.body.stats[1].base_stat;
+    if (req.body.stats[2].base_stat) pokemon.stats[2].base_stat = req.body.stats[2].base_stat;
+    if (req.body.stats[4].base_stat) pokemon.stats[4].base_stat = req.body.stats[4].base_stat;
+    if (req.body.stats[5].base_stat) pokemon.stats[5].base_stat = req.body.stats[5].base_stat;
+
     if (req.body.curr_hp !== undefined) pokemon.curr_hp = req.body.curr_hp;
     if (req.body.exp !== undefined) pokemon.exp = req.body.exp;
     if (req.body.next_lv !== undefined) pokemon.next_lv = req.body.next_lv;
     if (req.body.level !== undefined) pokemon.level = req.body.level;
 
     pokemon.save(function(err, response) {
-    console.log("xxcddjkvbfsb zkfb zkjb zjzxbvzfbnmvzbf,b,jfb");
+    console.log("________________________________________________");
     console.log(response);
       if (err) {
         res.send(err);

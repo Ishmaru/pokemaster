@@ -1,5 +1,5 @@
 (function() {
-  "use strict";
+  'use strict';
 
   angular
       .module("pokeMaster")
@@ -16,6 +16,8 @@
     battle.flee = flee;
     battle.select = TrainerDataService.select;
     battle.update = updatePokemon;
+    battle.player = '';
+    battle.enemy = '';
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
@@ -61,9 +63,13 @@
 
     function dammage() {
       if (battle.order.length > 1) {
-        if (dodgeCalc(battle.order[0], battle.order[1])) attackCalc(battle.order[0], battle.order[1]);
+        if (dodgeCalc(battle.order[0], battle.order[1])) {
+          attackCalc(battle.order[0], battle.order[1])
+        };
       } else {
-        if (dodgeCalc(battle.order[0], battle.currentPoke[0])) attackCalc(battle.order[0], battle.currentPoke[0]);
+        if (dodgeCalc(battle.order[0], battle.currentPoke[0])) {
+          attackCalc(battle.order[0], battle.currentPoke[0]);
+        };
       }
     };
 
@@ -72,8 +78,13 @@
     };
 
     function attackCalc(attacker, defender = battle.currentPoke[0]) {
-      defender.curr_hp -= Math.max(2, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat));
+      defender.curr_hp -= parseInt(Math.max(2, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
       console.log('hit', defender.name, defender.curr_hp);
+      if (defender.user) {
+        battle.player = 'animated';
+      } else {
+        battle.enemy = 'animated';
+      }
     };
 
     function missed() {

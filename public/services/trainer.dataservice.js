@@ -37,7 +37,7 @@
           pokemon.exp -= pokemon.next_lv;
           pokemon.next_lv *= 1.5;
           pokemon.stats.forEach(function(i){
-            i.base_stat *= (0.40 * pokemon.level);
+            i.base_stat += parseInt((0.50 * pokemon.level));
             console.log(i.base_stat);
           });
           pokemon.curr_hp = pokemon.stats[5].base_stat;
