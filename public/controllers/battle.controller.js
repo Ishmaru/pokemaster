@@ -5,9 +5,9 @@
       .module("pokeMaster")
       .controller("BattleController", BattleController);
 
-  BattleController.$inject = ["WildDataService", "TrainerDataService", "$state", "$log", "$http"];
+  BattleController.$inject = ["WildDataService", "TrainerDataService", "$state", "$log", "$http", "$timeout"];
 
-  function BattleController(WildDataService, TrainerDataService, $state, $log, $http) {
+  function BattleController(WildDataService, TrainerDataService, $state, $log, $http, $timeout) {
     var battle = this;
 
     battle.order = [];
@@ -21,6 +21,7 @@
       WildDataService.getWild().then(function(response) {
         battle.currentWild = JSON.parse(response.data.body);
         battle.currentWild.curr_hp = battle.currentWild.stats[5].base_stat;
+        WildDataService.spawnAnimation(battle.currentWild);
       });
     }
     getPokemon();
@@ -79,14 +80,17 @@
       TrainerDataService.damageAnimation(defender);
       defender.curr_hp -= parseInt(Math.max(10, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
       console.log('hit', defender.name, defender.curr_hp);
+      attacker.att = 'bounce';
+      $timeout(function() {attacker.att = '';}, 500);
     };
 
-    function missed() {
+    function missedAtt() {
       console.log('missed');
     }
 
     function missed() {
       console.log('failed');
+      battle.currentWild.hurt = '';
       turn(battle.currentWild);
     }
 
@@ -96,13 +100,13 @@
       } else {
         battle.order.push(enemy);
       };
-        setTimeout(function() {
+        $timeout(function() {
           dammage();
-          checkPoke(battle.order[1]);
+          if (checkPoke(battle.order[1])) return false;
           var change = battle.order.shift();
           battle.order.push(change);
           if (player) {
-            setTimeout(function() {
+            $timeout(function() {
               dammage();
               checkPoke(battle.order[1]);
               TrainerDataService.restore(battle.currentPoke);
@@ -116,14 +120,17 @@
       if (pokemon.curr_hp < 1) {
         console.log(`${pokemon.name} has fainted!`);
         kill(pokemon);
+        battle.order = [];
+        return true;
       }
     }
 
     function capture(chance, pokemon){
       console.log('Threw Pokeball');
-      setTimeout(function() {
+      pokemon.hurt = 'zoomOut';
+      $timeout(function() {
         (Math.floor(Math.random() * (100 + (pokemon.curr_hp / 2))) < chance) ? postPoke(WildDataService.prepareToSave(pokemon)) : missed()
-      }, 2000);
+      }, 1000);
     }
 
     function expReward(pokeWin, pokeLoose) {

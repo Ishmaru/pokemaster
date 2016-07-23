@@ -5,9 +5,9 @@
       .module("pokeMaster")
       .factory("TrainerDataService", TrainerDataService);
 
-  TrainerDataService.$inject = ["$state", "$log", "$http", "UserDataService"];
+  TrainerDataService.$inject = ["$state", "$log", "$http", "UserDataService", "$timeout"];
 
-  function TrainerDataService($state, $log, $http, UserDataService) {
+  function TrainerDataService($state, $log, $http, UserDataService, $timeout) {
     return {
       // var trainer = this;
       defeated: 0,
@@ -35,20 +35,20 @@
           pokemon.exp -= pokemon.next_lv;
           pokemon.next_lv *= 1.5;
           pokemon.stats.forEach(function(i){
-            i.base_stat += parseInt((0.50 * pokemon.level));
+            parseInt(i.base_stat += (0.50 * pokemon.level));
             console.log(i.base_stat);
           });
-          pokemon.curr_hp = pokemon.stats[5].base_stat;
+          parseInt(pokemon.curr_hp = pokemon.stats[5].base_stat);
         }
       },
 
       restore: function(arr) {
         arr.forEach(function(i){
             if (i.curr_hp < i.stats[5].base_stat) {
-              i.curr_hp += 5;
+              parseInt(i.curr_hp += 5);
             };
             if (i.curr_hp > i.stats[5].base_stat) {
-              i.curr_hp = i.stats[5].base_stat;
+              parseInt(i.curr_hp = i.stats[5].base_stat);
             };
         });
       },
@@ -67,7 +67,7 @@
 
       damageAnimation: function(defender) {
         defender.hurt = 'jello';
-        setTimeout(function(){ defender.hurt = ''; }, 1000);
+        $timeout(function(){ defender.hurt = ''; }, 1000);
       }
     }
   }

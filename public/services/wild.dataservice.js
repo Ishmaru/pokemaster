@@ -5,9 +5,9 @@
       .module('pokeMaster')
       .factory('WildDataService', WildDataService);
 
-  WildDataService.$inject = ['$state', '$log', '$http', "UserDataService"];
+  WildDataService.$inject = ['$state', '$log', '$http', "UserDataService", "$timeout"];
 
-  function WildDataService($state, $log, $http, UserDataService) {
+  function WildDataService($state, $log, $http, UserDataService, $timeout) {
     // var wild = this;
     return {
 
@@ -65,7 +65,7 @@
           ],
           sprites: {
             back_default: input.sprites.back_default,
-            front_default: input.sprites.back_default
+            front_default: input.sprites.front_default
           },
           base_experience: input.base_experience,
           types: [
@@ -83,6 +83,11 @@
           curr_hp: input.curr_hp
         }
         return trimmed;
+      },
+
+      spawnAnimation: function(poke) {
+        poke.hurt = 'lightSpeedIn';
+        $timeout(function(){ poke.hurt = ''; }, 1000)
       }
     }
   }
