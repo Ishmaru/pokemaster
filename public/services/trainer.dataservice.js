@@ -36,20 +36,20 @@
           pokemon.exp -= pokemon.next_lv;
           pokemon.next_lv *= 1.5;
           pokemon.stats.forEach(function(i){
-            parseInt(i.base_stat += (0.50 * pokemon.level));
+            i.base_stat =  Math.ceil(i.base_stat *= (1.1));
             console.log(i.base_stat);
           });
-          parseInt(pokemon.curr_hp = pokemon.stats[5].base_stat);
+          pokemon.curr_hp = Math.ceil(pokemon.stats[5].base_stat);
         }
       },
 
       restore: function(arr) {
         arr.forEach(function(i){
             if (i.curr_hp < i.stats[5].base_stat) {
-              parseInt(i.curr_hp += 5);
+              Math.ceil(i.curr_hp += 5);
             };
             if (i.curr_hp > i.stats[5].base_stat) {
-              parseInt(i.curr_hp = i.stats[5].base_stat);
+              Math.ceil(i.curr_hp = i.stats[5].base_stat);
             };
         });
       },
@@ -69,6 +69,10 @@
       damageAnimation: function(defender) {
         defender.hurt = 'jello animated';
         $timeout(function(){ defender.hurt = ''; }, 1000);
+      },
+
+      findStrongestStat: function(stat1, stat2) {
+        return (stat1 > stat2) ? stat1 : stat2;
       }
     }
   }

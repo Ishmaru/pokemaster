@@ -1,9 +1,11 @@
 <div>
   <div class="window">
-    <div ng-class="battle.currentPoke[0].hurt" class="screen background frame block infinite">
-      <img ng-class="battle.currentPoke[0].att" ng-class="battle.currentPoke[0].hurt" class="screen playerPoke infinite" ng-click="battle.update(battle.currentPoke[0]._id, battle.currentPoke[0])" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
-      <!-- <img ng-class="battle.enemy" class="wild screen enemyPoke animated infinite" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128"> -->
-      <img ng-class="battle.currentWild.hurt" ng-class="battle.currentWild.att" class="wild screen enemyPoke infinite" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
+    <div class="screen frame block infinite">
+      <div ng-class="battle.currentPoke[0].hurt" class="background infinite">
+        <img ng-class="battle.currentPoke[0].att" ng-class="battle.currentPoke[0].hurt" class="screen playerPoke infinite" ng-click="battle.update(battle.currentPoke[0]._id, battle.currentPoke[0])" ng-show="battle.currentPoke[0]" ng-src="{{battle.currentPoke[0].sprites.back_default}}" alt="{{battle.currentPoke.name}}"  height="320" width="320">
+        <!-- <img ng-class="battle.enemy" class="wild screen enemyPoke animated infinite" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128"> -->
+        <img ng-class="battle.currentWild.hurt" ng-class="battle.currentWild.att" class="wild screen enemyPoke infinite" ng-show="battle.currentWild" ng-src="{{battle.currentWild.sprites.front_default}}" alt="{{battle.currentWild.name}}"  height="128" width="128">
+      </div>
     </div>
     <div class="battle-menu block right">
       <button ng-click="battle.attack(battle.currentWild, battle.currentPoke[0])" class="attack">ATTACK</button>
@@ -22,16 +24,19 @@
           <p class="screen stats">Name: {{battle.currentPoke[0].name}}</p>
           <p class="screen stats">HP: {{battle.currentPoke[0].curr_hp}}</p>
           <div class="less-em">
-            <p class="screen stats">EXP: {{battle.currentPoke[0].exp}}</p>
-            <p class="screen stats">LV: {{battle.currentPoke[0].level}}</p>
+            <p class="screen stats tiny">LV: {{battle.currentPoke[0].level}}</p>
+            <p class="screen stats tiny">Next: {{battle.currentPoke[0].next_lv - battle.currentPoke[0].exp}}</p>
+            <p class="screen stats tiny">Strength: {{battle.findStrongestStat(battle.currentPoke[0].stats[2].base_stat, battle.currentPoke[0].stats[2].base_stat)}}</p>
+            <p class="screen stats tiny">Defense: {{battle.findStrongestStat(battle.currentPoke[0].stats[2].base_stat, battle.currentPoke[0].stats[2].base_stat)}}</p>
           </div>
         </div>
         <div class="box block">
-          <p class="screen stats">Name:{{battle.currentWild.name}}</p>
+          <p class="screen stats">Name: {{battle.currentWild.name}}</p>
           <p class="screen stats">HP: {{battle.currentWild.curr_hp}}</p>
           <div class="less-em">
-            <p class="screen stats">EXP: {{battle.currentWild.base_experence}}</p>
-            <p class="screen stats">Strength: {{battle.currentWild.stats[4].base_stat}}</p>
+            <p class="screen stats tiny">EXP: {{battle.currentWild.base_experience}}</p>
+            <p class="screen stats tiny">Strength: {{battle.findStrongestStat(battle.currentWild.stats[2].base_stat, battle.currentWild.stats[2].base_stat)}}</p>
+            <p class="screen stats tiny">Defense: {{battle.findStrongestStat(battle.currentWild.stats[2].base_stat, battle.currentWild.stats[2].base_stat)}}</p>
           </div>
         </div>
     </div>

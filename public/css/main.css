@@ -43,10 +43,6 @@ a { color: #00B7FF; }
   border-width: 1px;
 }
 
-.frame {
-  overflow: hidden;
-  margin: 20px;
-}
 
 .battle-menu {
   margin-top: 50px;
@@ -70,10 +66,19 @@ a { color: #00B7FF; }
 }
 
 .window {
+  padding: 20px;
   width: 700px;
   height: 400px;
   margin: auto;
 }
+
+.frame {
+  overflow: hidden;
+  width: 500px;
+  height: 320px;
+}
+
+
 
 .form-box {
   color: black;
@@ -104,6 +109,7 @@ a { color: #00B7FF; }
   width: 150px;
   height: 150px;
   margin: 20px;
+  color: white;
 }
 
 .status {
@@ -121,4 +127,9 @@ a { color: #00B7FF; }
 
 button {
   width: 90px;
+}
+
+.tiny {
+  margin-top: -2px;
+  margin-bottom: -2px;
 }

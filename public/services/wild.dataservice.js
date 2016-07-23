@@ -80,6 +80,7 @@
           ],
 
           user:    UserDataService.user._id,
+          next_lv: input.base_experience * 2,
           curr_hp: input.curr_hp
         }
         return trimmed;

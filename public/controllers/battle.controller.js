@@ -16,32 +16,33 @@
     battle.flee = flee;
     battle.select = TrainerDataService.select;
     battle.update = updatePokemon;
+    battle.findStrongestStat = TrainerDataService.findStrongestStat;
 
     function getPokemon() {
       WildDataService.getWild().then(function(response) {
         battle.currentWild = JSON.parse(response.data.body);
         battle.currentWild.curr_hp = battle.currentWild.stats[5].base_stat;
+        TrainerDataService.defeated = 0;
         WildDataService.spawnAnimation(battle.currentWild);
-      });
+      })
     }
     getPokemon();
 
     TrainerDataService.getPoke().then(function(response) {
       battle.currentPoke = response.data;
-    });
+    })
 
     function kill() {
       if (battle.currentWild.curr_hp <= 1) {
         expReward(battle.currentPoke[0], battle.currentWild);
         battle.currentWild = null;
-        TrainerDataService.defeated = 0;
         getPokemon();
       }
       if (battle.currentPoke[0].curr_hp <= 1) {
         updatePokemon(battle.currentPoke[0]._id, battle.currentPoke[0]);
         TrainerDataService.faint(battle.currentPoke, battle.currentPoke[0]);
       }
-    };
+    }
 
     function checkPriority(enemy, player) {
       if (player.stats[0].base_stat >= enemy.stats[0].base_stat) {
@@ -52,13 +53,13 @@
         battle.order.push(player);
       }
       // console.log(battle.order);
-    };
+    }
 
     function dodgeCalc(attacker, defender = battle.currentPoke[0]) {
       var defLuck = (Math.floor(Math.random() * (defender.stats[0].base_stat)));
       var attLuck = attacker.stats[4].base_stat;
       return (defLuck < attLuck) ? true : false;
-    };
+    }
 
     function dammage() {
       if (battle.order.length > 1) {
@@ -70,19 +71,20 @@
           attackCalc(battle.order[0], battle.currentPoke[0]);
         };
       }
-    };
+    }
 
     function superHit() {
       return Math.floor(Math.random() * 2) + 1;
-    };
+    }
 
     function attackCalc(attacker, defender = battle.currentPoke[0]) {
       TrainerDataService.damageAnimation(defender);
-      defender.curr_hp -= parseInt(Math.max(10, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
+      defender.curr_hp -= Math.floor(Math.max(10, ((TrainerDataService.findStrongestStat(attacker.stats[4].base_stat, attacker.stats[2].base_stat) + superHit()) - TrainerDataService.findStrongestStat(attacker.stats[1].base_stat, attacker.stats[3].base_stat))));
+      // defender.curr_hp -= parseInt(Math.max(10, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
       console.log('hit', defender.name, defender.curr_hp);
       attacker.att = 'bounce animated';
       $timeout(function() {attacker.att = '';}, 800);
-    };
+    }
 
     function missedAtt() {
       console.log('missed');
@@ -101,20 +103,20 @@
         battle.order.push(enemy);
       };
         $timeout(function() {
+          battle.currentPoke[0].exp += 15;
           dammage();
           if (checkPoke(battle.order[1])) return false;
+          if (!player) return false;
           var change = battle.order.shift();
           battle.order.push(change);
-          if (player) {
             $timeout(function() {
               dammage();
               checkPoke(battle.order[1]);
               TrainerDataService.restore(battle.currentPoke);
               battle.order = [];
             }, 2000);
-          };
         }, 500);
-    };
+    }
 
     function checkPoke(pokemon = battle.currentPoke[0]){
       if (pokemon.curr_hp < 1) {
