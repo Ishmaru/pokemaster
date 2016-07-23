@@ -98,3 +98,19 @@ You can also force save your Pokemon by clicking on them while they are in the f
 |Show user|/api/pokemon/id|
 |Get Random Pokemon from PokeApi|/api/pokemon/get|
 |All Pokemon from specific User|/api/pokemon/user_id|
+
+#### Special Thanks
+
+Jim Clark
+
+Ezra Riez
+
+Phil Hughes
+
+Phil Lamplugh
+
+Everyone in General Assembly DTLA 10
+
+Paul Hallett & Zane Adickes from PokeApi
+
+And Nintendo / Game Freak for the awesome games!
