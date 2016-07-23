@@ -24,9 +24,10 @@
         arr.push(change[0]);
       },
 
-      select: function(arr, poke) {
+      select: function(arr, poke, battle) {
         var change = arr.splice(arr.indexOf(poke), 1);
         arr.unshift(change[0]);
+        battle.update(change[0]._id, change[0]);
       },
 
       levelUp: function(pokemon) {
@@ -66,7 +67,7 @@
       },
 
       damageAnimation: function(defender) {
-        defender.hurt = 'jello';
+        defender.hurt = 'jello animated';
         $timeout(function(){ defender.hurt = ''; }, 1000);
       }
     }

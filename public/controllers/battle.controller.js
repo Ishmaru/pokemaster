@@ -80,8 +80,8 @@
       TrainerDataService.damageAnimation(defender);
       defender.curr_hp -= parseInt(Math.max(10, ((attacker.stats[4].base_stat + superHit()) - defender.stats[3].base_stat)));
       console.log('hit', defender.name, defender.curr_hp);
-      attacker.att = 'bounce';
-      $timeout(function() {attacker.att = '';}, 500);
+      attacker.att = 'bounce animated';
+      $timeout(function() {attacker.att = '';}, 800);
     };
 
     function missedAtt() {
@@ -127,10 +127,10 @@
 
     function capture(chance, pokemon){
       console.log('Threw Pokeball');
-      pokemon.hurt = 'zoomOut';
+      pokemon.hurt = 'zoomOut slow-animated';
       $timeout(function() {
         (Math.floor(Math.random() * (100 + (pokemon.curr_hp / 2))) < chance) ? postPoke(WildDataService.prepareToSave(pokemon)) : missed()
-      }, 1000);
+      }, 2000);
     }
 
     function expReward(pokeWin, pokeLoose) {

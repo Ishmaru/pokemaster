@@ -86,7 +86,7 @@
       },
 
       spawnAnimation: function(poke) {
-        poke.hurt = 'lightSpeedIn';
+        poke.hurt = 'lightSpeedIn animated';
         $timeout(function(){ poke.hurt = ''; }, 1000)
       }
     }

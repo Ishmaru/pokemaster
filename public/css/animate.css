@@ -16,8 +16,8 @@
 }
 
 .slow-animated {
-   -webkit-animation-duration: 2s;
-  animation-duration: 2s;
+   -webkit-animation-duration: 2.5s;
+  animation-duration: 2.5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
@@ -2902,7 +2902,7 @@
     opacity: 1;
   }
 
-  50% {
+  20% {
     opacity: 0;
     -webkit-transform: scale3d(.3, .3, .3);
     transform: scale3d(.3, .3, .3);
@@ -2918,7 +2918,7 @@
     opacity: 1;
   }
 
-  50% {
+  20% {
     opacity: 0;
     -webkit-transform: scale3d(.3, .3, .3);
     transform: scale3d(.3, .3, .3);
