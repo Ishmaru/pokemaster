@@ -103,7 +103,7 @@
         battle.order.push(enemy);
       };
         $timeout(function() {
-          battle.currentPoke[0].exp += 15;
+          TrainerDataService.expGift(battle.currentPoke[0], 15, battle);
           dammage();
           if (checkPoke(battle.order[1])) return false;
           if (!player) return false;

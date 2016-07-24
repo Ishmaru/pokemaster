@@ -63,7 +63,13 @@
       },
 
       gameOver: function() {
-        $state.go('gameover')
+        $state.go('gameover');
+      },
+
+      expGift: function(pokemon, amount) {
+          pokemon.exp += amount;
+          this.levelUp(pokemon);
+          // battle.update(pokemon._id, pokemon);
       },
 
       damageAnimation: function(defender) {
